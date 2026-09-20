@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire Tournament — Overall Standings</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="public-body">
+  <!-- Minimal Top Controls Bar -->
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-mark">FF</div>
+      <div>
+        <div class="brand" id="topbarTitle">FREE FIRE CHAMPIONSHIP</div>
+        <div class="brand-sub">OFFICIAL TOURNAMENT STANDINGS</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="auto-refresh-tag"><span class="pulse-dot"></span> LIVE AUTO-UPDATE</div>
+      <button class="action-btn" id="refreshBtn" title="Refresh Leaderboard">↻ REFRESH</button>
+      <button class="action-btn" id="fullscreenBtn" title="Presentation Mode">⛶ FULLSCREEN</button>
+      <a class="action-btn admin-link" href="/admin">ADMIN PANEL</a>
+    </div>
+  </header>
+
+  <!-- Main Tournament Broadcast Poster Frame -->
+  <main class="poster-container">
+    <div class="esports-card" id="tournamentPoster">
+      <!-- Background Graphic Accents (Topography Contour Lines & Gamer Vibe) -->
+      <div class="poster-art-layer" aria-hidden="true">
+        <svg class="topo-svg" viewBox="0 0 1000 800" preserveAspectRatio="none">
+          <path d="M-50,120 Q200,60 450,180 T950,140 T1100,240" fill="none" stroke="rgba(255,200,120,0.14)" stroke-width="1.5" />
+          <path d="M-50,220 Q250,140 500,280 T1000,230 T1100,340" fill="none" stroke="rgba(255,200,120,0.12)" stroke-width="1.5" />
+          <path d="M-50,330 Q300,240 550,380 T1050,320 T1100,450" fill="none" stroke="rgba(255,200,120,0.10)" stroke-width="1.5" />
+          <path d="M-50,450 Q350,340 600,490 T1080,410 T1100,560" fill="none" stroke="rgba(255,200,120,0.08)" stroke-width="1.5" />
+          <path d="M-50,570 Q400,440 650,590 T1100,520" fill="none" stroke="rgba(255,200,120,0.07)" stroke-width="1.5" />
+          <ellipse cx="140" cy="220" rx="280" ry="240" fill="none" stroke="rgba(255,200,120,0.08)" stroke-width="1.2" />
+          <ellipse cx="880" cy="460" rx="340" ry="280" fill="none" stroke="rgba(255,200,120,0.07)" stroke-width="1.2" />
+        </svg>
+        <div class="poster-radial-glow"></div>
+        <div class="poster-vignette"></div>
+      </div>
+
+      <!-- Tournament Header Section -->
+      <div class="poster-header">
+        <!-- Tournament Shield Logo (Left) -->
+        <div class="crest-column">
+          <div class="tournament-logo-wrap">
+            <img src="/logo.jpg" alt="Hostel Tournament Free Fire Esports Logo" class="tournament-logo-img" />
+          </div>
+        </div>
+
+        <!-- Center Main Title Block -->
+        <div class="center-title-column">
+          <h1 class="title-overall">OVERALL</h1>
+          <h2 class="title-standings">STANDINGS</h2>
+          <div class="stage-pill-box">
+            <span class="stage-pill-text" id="tournamentSubtitle">SEMI FINAL GROUP A</span>
+          </div>
+        </div>
+
+        <!-- Free Fire Official Branding (Right) -->
+        <div class="brand-tag-column">
+          <div class="ff-official-logo">
+            <span class="ff-icon">⚡</span>
+            <span class="ff-text">FREE FIRE</span>
+          </div>
+          <div class="live-indicator-badge">
+            <span class="live-flicker-dot"></span>
+            <span id="statusText">LIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard Table Section -->
+      <div class="poster-table-container">
+        <!-- Column Headers -->
+        <div class="leaderboard-head-row">
+          <div class="col-head col-no">NO.</div>
+          <div class="col-head col-name">TEAM NAME</div>
+          <div class="col-head col-booyah">BOOYAH</div>
+          <div class="col-head col-kills">KILLS</div>
+          <div class="col-head col-points">ST POINTS</div>
+          <div class="col-head col-total">TOTAL PTS</div>
+        </div>
+
+        <!-- Dynamic Rows (Orange bars with slanted dividers) -->
+        <div class="leaderboard-rows-list" id="standingsBody"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state-banner" id="emptyState" hidden>
+          <div class="empty-icon">✦</div>
+          <h3>NO TEAMS ADDED YET</h3>
+          <p>Open the Admin Panel to add tournament teams, kills, and placement points.</p>
+        </div>
+      </div>
+
+      <!-- Poster Footer -->
+      <div class="poster-footer">
+        <div class="footer-website-link">
+          <span class="globe-icon">🌐</span>
+          <span id="footerSiteText">www.freefiretournament.com</span>
+        </div>
+        <div class="footer-social-icons">
+          <span class="social-circle" title="YouTube">▶</span>
+          <span class="social-circle" title="Facebook">f</span>
+          <span class="social-circle" title="Instagram">📷</span>
+          <span class="social-circle" title="Twitter/X">𝕏</span>
+          <span class="social-circle" title="Discord">💬</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

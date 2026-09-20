@@ -1,0 +1,11 @@
+FREE FIRE TOURNAMENT — QUICK START
+
+1. Install Node.js 20 or newer.
+2. Open this folder.
+3. Double-click start.bat (Windows), or set ADMIN_ID / ADMIN_PASSWORD and run: npm start
+4. Public tournament page: http://localhost:3000/
+5. Admin page: http://localhost:3000/admin
+
+The teams and points are saved in data.json.
+
+When you give the admin ID and password, they can be configured in the server startup settings before deployment.

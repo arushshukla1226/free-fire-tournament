@@ -1,0 +1,12 @@
+{
+  "name": "freefire-tournament-stadium",
+  "version": "1.0.0",
+  "description": "A free-fire-inspired tournament leaderboard with single-admin editing and persistent server-side data.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

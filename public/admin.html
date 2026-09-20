@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Free Fire Tournament</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="admin-page">
+  <div class="bg-grid"></div>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-mark">FF</div>
+      <div>
+        <div class="brand">TOURNAMENT ADMIN</div>
+        <div class="brand-sub">SINGLE ADMIN CONTROL</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="public-link" href="/">VIEW PUBLIC TABLE</a>
+      <button class="logout-btn" id="logoutBtn">LOG OUT</button>
+    </div>
+  </header>
+
+  <main class="container admin-container">
+    <section class="login-card panel" id="loginView">
+      <div class="login-symbol">⚡</div>
+      <div class="eyebrow">SECURE ACCESS</div>
+      <h1>ADMIN LOGIN</h1>
+      <p>Only the configured tournament admin can edit the standings.</p>
+      <form id="loginForm">
+        <label>ADMIN ID<input id="loginId" autocomplete="username" required /></label>
+        <label>PASSWORD<input id="loginPassword" type="password" autocomplete="current-password" required /></label>
+        <button class="primary-btn" type="submit">ENTER DASHBOARD</button>
+        <div class="form-message" id="loginMessage"></div>
+      </form>
+    </section>
+
+    <section id="dashboardView" hidden>
+      <div class="dashboard-head">
+        <div>
+          <div class="eyebrow"><span class="live-dot"></span>ADMIN MODE</div>
+          <h1>TOURNAMENT CONTROL</h1>
+          <p>Edit any team at any time. Changes are saved on the server immediately.</p>
+        </div>
+        <a class="public-link big-link" href="/">OPEN PUBLIC STANDINGS →</a>
+      </div>
+
+      <div class="admin-grid">
+        <section class="panel card-pad">
+          <div class="section-head compact">
+            <div><div class="eyebrow">TOURNAMENT</div><h2>HEADER SETTINGS</h2></div>
+          </div>
+          <form id="settingsForm" class="form-grid">
+            <label>TOURNAMENT TITLE<input id="titleInput" maxlength="80" required /></label>
+            <label>SUBTITLE<input id="subtitleInput" maxlength="120" /></label>
+            <label>STATUS<input id="statusInput" maxlength="20" placeholder="LIVE" /></label>
+            <button class="primary-btn" type="submit">SAVE HEADER</button>
+            <div class="form-message" id="settingsMessage"></div>
+          </form>
+        </section>
+
+        <section class="panel card-pad">
+          <div class="section-head compact">
+            <div><div class="eyebrow">SECURITY</div><h2>ADMIN PASSWORD</h2></div>
+          </div>
+          <form id="passwordForm" class="form-grid">
+            <label>CURRENT PASSWORD<input id="oldPasswordInput" type="password" required autocomplete="current-password" /></label>
+            <label>NEW PASSWORD<input id="newPasswordInput" type="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 chars" /></label>
+            <button class="primary-btn" type="submit">UPDATE PASSWORD</button>
+            <div class="form-message" id="passwordMessage"></div>
+          </form>
+          <div class="save-state" style="margin-top:14px;">
+            <a class="secondary-btn" href="/api/admin/export" style="font-size:12px;padding:6px 10px;">DOWNLOAD JSON BACKUP</a>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel card-pad standings-admin">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">EDITABLE STANDINGS</div>
+            <h2>TEAMS & POINTS</h2>
+          </div>
+          <button class="primary-btn" id="addTeamBtn">+ ADD TEAM</button>
+        </div>
+
+        <div class="table-wrap admin-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 80px;">RANK</th>
+                <th>TEAM NAME</th>
+                <th class="text-center" style="width: 90px;" title="Booyah Count (display only)">B</th>
+                <th class="text-center" style="width: 110px;" title="Position (auto-calculates ST Points)">POS</th>
+                <th class="text-center" style="width: 100px;" title="ST Points (auto from position)">ST PTS</th>
+                <th class="text-center" style="width: 100px;" title="Kill Points">KP</th>
+                <th class="text-center" style="width: 110px;" title="Total = ST Points + KP">TOTAL</th>
+                <th style="width: 140px;">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="adminBody"></tbody>
+          </table>
+          <div class="empty-state" id="adminEmpty" hidden>
+            <div class="empty-icon">+</div><h3>No teams yet</h3><p>Add your tournament teams to begin.</p>
+          </div>
+        </div>
+        <div class="form-message" id="teamMessage"></div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal panel">
+      <div class="section-head compact">
+        <div>
+          <div class="eyebrow">TEAM ENTRY</div>
+          <h2 id="modalTitle">ADD TEAM</h2>
+        </div>
+        <button class="icon-btn" id="closeModal">×</button>
+      </div>
+      <form id="teamForm">
+        <input type="hidden" id="teamId" />
+        <label>TEAM NAME
+          <input id="teamName" maxlength="40" required placeholder="e.g. TITAN ESPORTS" />
+        </label>
+        <div class="modal-score-grid">
+          <label>B (BOOYAH COUNT)
+            <input id="teamB" type="number" min="0" max="9999" step="1" required value="0" />
+          </label>
+          <label>POSITION (1–8)
+            <select id="teamPosition" required>
+              <option value="1">1st &mdash; 10 pts</option>
+              <option value="2">2nd &mdash; 7 pts</option>
+              <option value="3">3rd &mdash; 5 pts</option>
+              <option value="4">4th &mdash; 4 pts</option>
+              <option value="5">5th &mdash; 3 pts</option>
+              <option value="6">6th &mdash; 2 pts</option>
+              <option value="7">7th &mdash; 1 pt</option>
+              <option value="8" selected>8th &mdash; 0 pts</option>
+            </select>
+          </label>
+          <label>KP (KILL POINTS)
+            <input id="teamKP" type="number" min="0" max="9999" step="1" required value="0" />
+          </label>
+        </div>
+        <div class="total-preview-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span class="preview-label">ST POINTS (AUTO FROM POS):</span>
+            <strong id="modalStPreview" class="preview-value" style="font-size:22px;">0</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span class="preview-label">TOTAL POINTS (ST + KP):</span>
+            <strong id="modalTotalPreview" class="preview-value">0</strong>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-btn" type="button" id="cancelModal">CANCEL</button>
+          <button class="primary-btn" type="submit">SAVE TEAM</button>
+        </div>
+        <div class="form-message" id="modalMessage"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/admin.js"></script>
+</body>
+</html>
